@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Data Analysis</h1>
+
+        <!-- Upload Form -->
+        <div class="upload-form">
+            <form method="POST" enctype="multipart/form-data">
+                <label for="file">Upload a CSV file:</label>
+                <input type="file" name="file" id="file" accept=".csv,.txt" required>
+                <label for="chart_type">Select Chart Type:</label>
+                <select name="chart_type" id="chart_type">
+                    <option value="histogram">Histogram</option>
+                    <option value="pie">Pie Chart</option>
+                    <option value="line">Line Graph</option>
+                    <option value="sincos">Sin/Cos/Tan Plot</option>
+                </select>
+                
+                <button type="submit">Generate Chart</button>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        {% if summary or plot_data %}
+        <div class="results">
+            {% if summary %}
+            <h2>Summary Statistics</h2>
+            <div class="table-container">
+                {{ summary|safe }}
+            </div>
+            {% endif %}
+
+            {% if plot_data %}
+            <h2>{{ chart_type|title }}</h2>
+            <div class="plot-container">
+                <img src="data:image/png;base64,{{ plot_data }}" alt="{{ chart_type }}">
+            </div>
+            {% endif %}
+
+            <!-- Clear Button -->
+            <form method="GET" action="/">
+                <button type="submit" class="clear-button">Clear and Start Over</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
