@@ -21,4 +21,4 @@ This is a Flask-based web application that allows users to upload a CSV file, an
 1. Clone the repository:
    ```bash
    git clone https://github.com/BlessingLuphahla/data-analysis.git
-   cd data-analysis-web-app
+   cd data-analysis
